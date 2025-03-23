@@ -1,6 +1,19 @@
-import { defineConfig } from '@rsbuild/core';
-import { pluginReact } from '@rsbuild/plugin-react';
+import { defineConfig } from "@rsbuild/core";
+import { pluginReact } from "@rsbuild/plugin-react";
+import { pluginModuleFederation } from "@module-federation/rsbuild-plugin";
 
 export default defineConfig({
-  plugins: [pluginReact()],
+  server: {
+    port: 2002,
+  },
+  plugins: [
+    pluginReact(),
+    pluginModuleFederation({
+      name: "remote2",
+      exposes: {
+        "./export-app": "./src/export-app.tsx",
+      },
+      shared: ["react", "react-dom"],
+    }),
+  ],
 });
