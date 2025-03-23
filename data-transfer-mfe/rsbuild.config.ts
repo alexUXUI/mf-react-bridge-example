@@ -13,7 +13,7 @@ export default defineConfig({
       exposes: {
         "./export-app": "./src/export-app.tsx",
       },
-      // shared: ["react", "react-dom"],
+      shared: ["react", "react-dom"],
     }),
   ],
 });

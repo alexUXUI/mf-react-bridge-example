@@ -13,7 +13,9 @@ export default defineConfig({
       name: "host",
       remotes: {
         remote1: "remote1@http://localhost:2001/mf-manifest.json",
+        remote2: "remote2@http://localhost:2002/mf-manifest.json",
       },
+      shared: ["react", "react-dom"],
     }),
   ],
 });
