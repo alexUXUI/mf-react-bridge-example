@@ -2,6 +2,7 @@
 import React from "react";
 import { createRemoteComponent } from "@module-federation/bridge-react";
 import { init, loadRemote } from "@module-federation/enhanced/runtime";
+import { BrowserRouter, Routes, Route } from "react-router";
 
 // Define FallbackErrorComp component
 const FallbackErrorComp = ({ error, resetErrorBoundary }: any) => {
@@ -42,31 +43,46 @@ const Remote2App = createRemoteComponent({
   loading: <div>Loading</div>,
 });
 
-///
-
 const App = () => {
   return (
     <div>
-      <Remote1App
-        // Can set className and style, will be automatically injected into the component
-        style={{ color: "red" }}
-        // name and age are remote component props, will be automatically passed to the remote component
-        name={"Ming"}
-        age={12}
-        // Can set ref, will be forwarded to the remote component, can get ref object to operate DOM
-        // ref={ref}
-        // Use memoryRoute to control child application routing as memoryRouter, will not directly display URL in browser address bar
-        // memoryRoute={{ entryPath: "/detail" }}
-      />
-      <Remote2App
-        // Can set className and style, will be automatically injected into the component
-        style={{ color: "blue" }}
-        // name and age are remote component props, will be automatically passed to the remote component
-        name={"Ming"}
-        age={12}
-        // Can set ref, will be forwarded to the remote component, can get ref object to operate DOM
-        // ref={ref}
-      />
+      <BrowserRouter basename="/">
+        <Routes>
+          <Route path="/" Component={() => <div>Home</div>} />
+          <Route
+            path="/transfer"
+            // Use Remote1App component, will be lazy loaded
+            Component={() => (
+              <Remote1App
+                // Can set className and style, will be automatically injected into the component
+                style={{ color: "red" }}
+                // name and age are remote component props, will be automatically passed to the remote component
+                name={"Ming"}
+                age={12}
+                // Can set ref, will be forwarded to the remote component, can get ref object to operate DOM
+                // Use memoryRoute to control child application routing as memoryRouter, will not directly display URL in browser address bar
+                // memoryRoute={{ entryPath: "/detail" }}
+              />
+            )}
+          />
+          <Route
+            path="/service"
+            // Use Remote1App component, will be lazy loaded
+            Component={() => (
+              <Remote2App
+                // Can set className and style, will be automatically injected into the component
+                style={{ color: "blue" }}
+                // name and age are remote component props, will be automatically passed to the remote component
+                name={"Ming"}
+                age={12}
+                // Can set ref, will be forwarded to the remote component, can get ref object to operate DOM
+                // Use memoryRoute to control child application routing as memoryRouter, will not directly display URL in browser address bar
+                // memoryRoute={{ entryPath: "/detail" }}
+              />
+            )}
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

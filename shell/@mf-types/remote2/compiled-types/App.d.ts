@@ -1,3 +1,3 @@
-import './App.css';
+import "./App.css";
 declare const App: () => import("react/jsx-runtime").JSX.Element;
 export default App;
